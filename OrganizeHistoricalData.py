@@ -6,7 +6,7 @@ historicalData = {}
 allLabels = {}
 
 # Load top 25 symbols from csv into  list
-with open('Data/TopAppearances.csv', newline='') as symbolCSVFile:
+with open('Data/TopAppearancesOld.csv', newline='') as symbolCSVFile:
     symbolFile = csv.reader(symbolCSVFile, delimiter=',', quotechar='|')
     for row in symbolFile:
         symbols.append(row[0])

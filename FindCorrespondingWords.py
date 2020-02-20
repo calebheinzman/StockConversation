@@ -16,10 +16,12 @@ with open('Data/TopAppearancesOld.csv', newline='') as messageCSVFile:
 #Loading messages into a list
 with open('Data/CleanedMessages.csv', newline='') as messageCSVFile:
     messageFile = csv.reader(messageCSVFile, delimiter=',', quotechar='|')
+    messageFile = list(messageFile)
+    del (messageFile[0])
     for row in messageFile:
-        dateWords = [row[0]]
         print(row[0])
         for symbol in symbols:
+            dateWords = [row[0]]
             for i in range(1, row.__len__()):
                 if row[i] == symbol:
                     halfArrSize = 10
@@ -31,7 +33,8 @@ with open('Data/CleanedMessages.csv', newline='') as messageCSVFile:
                         if j != i:
                             symbolWords.append(row[j])
                     dateWords.append(symbolWords)
-        messages.append(dateWords)
+            if len(dateWords) > 1:
+                messages.append(dateWords)
 
 
 with open('Data/SymbolMessages.csv', 'w') as f:
