@@ -13,7 +13,7 @@ with open('Data/TopAppearancesOld.csv', newline='') as symbolCSVFile:
 downCount = 0
 upCount = 0
 for symb in symbols:
-    fileName = 'Data/StockData/' + symb + '.csv'
+    fileName = 'Data/StockDataOld/' + symb + '.csv'
     with open(fileName, newline='') as historicalDataCSVFile:
         historicalDataFile = csv.reader(historicalDataCSVFile, delimiter=',', quotechar='|')
         historicalDataFile = list(historicalDataFile)
@@ -38,22 +38,27 @@ for symb in symbols:
                 allLabels[date].append(label)
             except:
                 historicalData[date]= [line]
-                allLabels[date] = [label]
+                try:
+                    allLabels[date][symb] = [label]
+                except:
+                    allLabels[date]  = {}
+                    allLabels[date][symb] = [label]
 
 
 
-    print(date)
-    print(symb)
+            print(date)
+            print(symb)
+            print(allLabels[date][symb])
     # print(allLabels)
     # print(historicalData)
 
-print(upCount)
-print(downCount)
-print(str(upCount/(downCount+upCount)))
+# print(upCount)
+# print(downCount)
+# print(str(upCount/(downCount+upCount)))
 
 f = open('Data/StockData.pkl','wb')
 pickle.dump(historicalData,f)
 f.close()
-f = open('Data/Labels.pkl','wb')
+f = open('Data/LabelsDictionary.pkl','wb')
 pickle.dump(allLabels,f)
 f.close()
